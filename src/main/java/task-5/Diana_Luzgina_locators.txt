@@ -1,0 +1,100 @@
+Google search page :
+-       query input  
+xpath=//input[@name='q']  
+css=input[name='q'] 
+-       ‘search in Google’ button 
+xpath=//input[@name='btnK']   
+css=input[name='btnK']
+-       “I am lucky!’ button  
+xpath=//input[@name='btnI']  
+css=input[name='btnI']
+-       Search for “nyan cat” and create a locator that returns ALL 10 result links (see screenshot) 
+xpath=//div[@id='rso']/div[@class='g']//h3
+css=div#rso>div.g h3
+-       n-th ‘o’ letter in Goooooooooogle   (n = 1...10) 
+xpath=//tr[@valign='top']/td[n+1]//span
+css=tr[valign='top']>td+td+...[n+1 times] span
+
+
+Mail.ru main page:  	
+-       login input  
+xpath=//input[@id='mailbox:login']
+css=input[id='mailbox:login']
+-       domain selection  
+xpath=//select[@id='mailbox:domain']
+css=select[id='mailbox:domain']
+-       ‘Ввести пароль’ button 
+xpath=//input[@class='o-control']
+css=input.o-control
+-	  password input   
+xpath=//input[@id='mailbox:password']
+css=input[id='mailbox:password']
+-       ‘Войти’ button    
+xpath=//input[@class='o-control']
+css=input.o-control
+
+
+Mail.ru main page (logged in):
+-       links to folders 
+incoming 
+xpath=//a[@href='/inbox/']
+css=a[href='/inbox/'] 
+outcoming 
+xpath=//a[@href='/sent/']
+css=a[href='/sent/']
+spam 
+xpath=//a[@href='/spam/']
+css=a[href='/spam/']
+deleted 
+xpath=//a[@href='/trash/']
+css=a[href='/trash/']
+drafts 
+xpath=//a[@href='/drafts/']
+css=a[href='/drafts/']  
+
+-       action buttons 
+write new letter 
+xpath=//a[@href='/compose/']
+css=a[href='/compose/']
+delete 
+xpath=//span[@data-title-shortcut='Del']
+css=span[data-title-shortcut='Del']
+mark as spam 
+xpath=//span[@data-title-shortcut='Shift+J']
+css=span[data-title-shortcut='Shift+J']
+mark as not spam 
+xpath=//span[@data-title-shortcut='Shift+J']
+css=span[data-title-shortcut='Shift+J']
+mark as read 
+xpath=//span[contains(text(),'Пометить прочитанным')]
+It's not appropriate to use css locator in this task, because css locator doesn't work with text of element.
+And also other attributes of element are too long and not unique.
+
+move to another folder 
+xpath=//span[@data-title-shortcut='V']
+css=span[data-title-shortcut='V']
+
+-       Checkbox for one exact letter
+xpath=//a[@href='/inbox/1:ca2fbf5b331cecf9:0/?']//div[@class='checkbox']
+css=a[href='/inbox/1:ca2fbf5b331cecf9:0/?'] div[class='checkbox'] 
+(if we want checkbox for n-letter at the page, then xpath=(//div[@class='dataset__items']//div[@class='checkbox'])[n] )
+-       Opening link for one exact letter
+xpath=//a[@href='/inbox/1:ca2fbf5b331cecf9:0/?']  
+css=a[href='/inbox/1:ca2fbf5b331cecf9:0/?']
+(if we want n-letter at the page, then xpath=(//div[@class='dataset__items']/a[not(contains(@class, 'spinner'))])[n] )
+-       New letter page: 
+inputs for address 
+xpath=//div[contains(@class,'head_container')]//input
+css=div[class*='head_container'] input
+topic 
+xpath=//div[contains(@class,'subject__container')]//input
+css=div[class*='subject__container'] input
+text 
+xpath=//div[@tabindex='505']
+css=div[tabindex='505']
+file attach  
+xpath=//button[@tabindex='500']
+css=button[tabindex='500']
+
+
+
