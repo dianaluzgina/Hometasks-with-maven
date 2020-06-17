@@ -1,7 +1,5 @@
-import com.epam.gomel.homework.Mood;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
-import org.testng.annotations.Listeners;
 
 public class GirlTestFactory {
     @DataProvider(name = "dataProvider")

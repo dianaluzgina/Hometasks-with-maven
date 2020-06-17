@@ -16,7 +16,10 @@ public class Girl extends Human {
     this.isPretty = isPretty;
     this.isSlimFriendGotAFewKilos = isSlimFriendGotAFewKilos;
     this.boyFriend = boyFriend;
-    this.boyFriend.setGirlFriend(this);
+//    this.boyFriend.setGirlFriend(this);
+    if (boyFriend!=null) {
+     this.boyFriend.setGirlFriend(this);
+    }
   }
 
   public Girl(boolean isPretty, boolean isSlimFriendGotAFewKilos) {
@@ -50,7 +53,8 @@ public class Girl extends Human {
   }
 
   public boolean isBoyfriendRich() {
-    return getBoyFriend() == null && getBoyFriend().isRich();
+    return //getBoyFriend() == null && getBoyFriend().isRich();
+            getBoyFriend() != null && getBoyFriend().isRich();
   }
 
   public boolean isBoyFriendWillBuyNewShoes() {

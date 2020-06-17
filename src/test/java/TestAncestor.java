@@ -1,4 +1,3 @@
-import com.epam.gomel.homework.Girl;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

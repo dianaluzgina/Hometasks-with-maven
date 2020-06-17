@@ -1,6 +1,3 @@
-import com.epam.gomel.homework.Boy;
-import com.epam.gomel.homework.Girl;
-import com.epam.gomel.homework.Mood;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.time.Month;

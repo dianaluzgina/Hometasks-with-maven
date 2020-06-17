@@ -13,10 +13,19 @@ public class Boy extends Human {
   private double wealth;
 
   public Boy(Month birthdayMonth, double wealth, Girl girlFriend) {
-    this.birthdayMonth = birthdayMonth;
-    this.wealth = wealth;
+//    this.birthdayMonth = birthdayMonth;
+//    this.wealth = wealth;
+    if (birthdayMonth!=null) {
+      this.birthdayMonth = birthdayMonth;
+    } else throw new NullPointerException("Please, enter month of birth (not null)");
+    if (wealth>=0) {
+      this.wealth = wealth;
+    } else throw new NumberFormatException("Please, enter wealth >=0");
     this.girlFriend = girlFriend;
-    this.girlFriend.setBoyFriend(this);
+//    this.girlFriend.setBoyFriend(this);
+    if (girlFriend!= null) {
+      this.girlFriend.setBoyFriend(this);
+    }
   }
 
   public Boy(Month birthdayMonth, double wealth) {
@@ -43,7 +52,8 @@ public class Boy extends Human {
 
   public void spendSomeMoney(double amountForSpending) {
     if (amountForSpending <= getWealth()) {
-      wealth += amountForSpending;
+     // wealth += amountForSpending;
+      wealth -= amountForSpending;
     } else {
       throw new RuntimeException(String
           .format("Not enough money! Requested amount is %s$ but you can't spend more then %s$",
@@ -53,7 +63,9 @@ public class Boy extends Human {
 
   public boolean isSummerMonth() {
     return Month.JUNE.equals(getBirthdayMonth())
-        || Month.JULY.equals(getBirthdayMonth()) && Month.AUGUST.equals(getBirthdayMonth());
+        || Month.JULY.equals(getBirthdayMonth())
+    //&& Month.AUGUST.equals(getBirthdayMonth());
+            || Month.AUGUST.equals(getBirthdayMonth());
   }
 
   public boolean isRich() {

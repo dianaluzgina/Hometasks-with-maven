@@ -1,6 +1,3 @@
-import com.epam.gomel.homework.Boy;
-import com.epam.gomel.homework.Girl;
-import com.epam.gomel.homework.Mood;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -87,7 +84,14 @@ public class BoyTest {
         boy = new Boy(Month.JANUARY);
         Assert.assertEquals(boy.getMood(), Mood.HORRIBLE);
     }
-
+    @Test(expectedExceptions = NullPointerException.class)
+    public void constructorBoyShouldTrowNullPointerException() {
+        boy = new Boy(null);
+    }
+    @Test(expectedExceptions = NumberFormatException.class)
+    public void constructorBoyShouldTrowNumberFormatException() {
+        boy = new Boy(Month.JANUARY, -5);
+    }
 
 }
 
