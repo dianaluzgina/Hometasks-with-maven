@@ -1,0 +1,77 @@
+package com.example.tests;
+
+import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
+import org.testng.annotations.*;
+import static org.testng.Assert.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class TestCase1 {
+  private WebDriver driver;
+  private String baseUrl;
+  private boolean acceptNextAlert = true;
+  private StringBuffer verificationErrors = new StringBuffer();
+
+  @BeforeClass(alwaysRun = true)
+  public void setUp() throws Exception {
+    driver = new FirefoxDriver();
+    baseUrl = "https://www.google.com/";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test
+  public void testCase1() throws Exception {
+    driver.get("https://www.google.com/");
+    driver.findElement(By.name("q")).click();
+    driver.findElement(By.name("q")).clear();
+    driver.findElement(By.name("q")).sendKeys("Banana song");
+    driver.findElement(By.id("tsf")).submit();
+    driver.findElement(By.xpath("//a[contains(@href, 'youtube.com')]/h3[contains(text(),'Full Song')]")).click();
+    assertEquals(driver.findElement(By.xpath("//title")).getText(), "YouTube");
+    assertTrue(Pattern.compile("[7-9][\\d].*[\\d][\\d][\\d].*[\\d][\\d][\\d].*").matcher(driver.findElement(By.xpath("//span[contains(@class,'view-count')][1]")).getText()).find());
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+    driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+  private boolean isElementPresent(By by) {
+    try {
+      driver.findElement(by);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
+
+  private boolean isAlertPresent() {
+    try {
+      driver.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
+
+  private String closeAlertAndGetItsText() {
+    try {
+      Alert alert = driver.switchTo().alert();
+      String alertText = alert.getText();
+      if (acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
+  }
+}
