@@ -13,5 +13,5 @@ public class BasePage {
         PageFactory.initElements(driver, this);
         defaultWait=new WebDriverWait(driver,10);
     }
-
 }
+

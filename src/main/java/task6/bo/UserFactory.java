@@ -7,14 +7,14 @@ public class UserFactory {
                  .withDomain("@list.ru")
                  .withPassword("tygygftd");
     }
-    // e-mail be.always.happy@bk.ru
-    //password = P8IPS3)mptuo
+
     public static User getUserWithInvalidPassword(){
         return new User()
                 .withName("be.always.happy")
                 .withDomain("@bk.ru")
                 .withPassword("tygygftd");
     }
+
     public static User getUserWithValidCredentials(){
         return new User()
                 .withName("be.always.happy")

@@ -33,34 +33,40 @@ public class MailRuLoginPage extends BasePage {
         driver.manage().window().maximize();
         return this;
     }
+
     public MailRuLoginPage typeUserName(String name){
         userNameInput.sendKeys(name);
         return this;
     }
+
     public MailRuLoginPage selectDomain(String domainName){
         Select select= new Select(domainInput);
         select.selectByVisibleText(domainName);
         return this;
     }
+
     public MailRuLoginPage clickPasswordButton(){
         passwordButton.click();
         return this;
     }
+
     public MailRuLoginPage typePassword(String password){
         defaultWait.until(ExpectedConditions.visibilityOf(passwordInput));
         passwordInput.sendKeys(password);
      return this;
     }
+
     public EmailMainPage clickSubmitButton(){
         submitButton.click();
         return new EmailMainPage(driver);
     }
+
     public boolean isErrorMessageDisplayed(){
         defaultWait.until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.isDisplayed();
     }
+
     public String getErrorMessageText(){
         return errorMessage.getText();
     }
-
 }

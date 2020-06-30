@@ -51,12 +51,6 @@ public class EmailMainPage extends BasePage {
         return this;
     }
 
-    public EmailMainPage clickInboxFolder(){
-        defaultWait.until(ExpectedConditions.visibilityOf(inboxFolder));
-        inboxFolder.click();
-        return this;
-    }
-
     public boolean isInboxFolderDisplayed() {
         defaultWait.until(ExpectedConditions.visibilityOf(inboxFolder));
         return inboxFolder.isDisplayed();
@@ -141,11 +135,6 @@ public class EmailMainPage extends BasePage {
         return this;
     }
 
-    public EmailMainPage clickLinkOfTheLetterByIndex(int index){
-        driver.findElement(By.xpath("(//div[@class='dataset__items']/a[not(contains(@class, 'spinner'))])["+index+"]")).click();
-        return this;
-    }
-
     public EmailMainPage clickSaveDraftMailButton(){
         saveDraftMailButton.click();
         return this;
@@ -160,5 +149,4 @@ public class EmailMainPage extends BasePage {
         trashFolder.click();
         return this;
     }
-
 }

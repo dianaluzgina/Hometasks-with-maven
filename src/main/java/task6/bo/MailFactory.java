@@ -9,12 +9,14 @@ public class MailFactory {
                 .withSubject(Utilities.getUniqueSubject("Hello"))
                 .withBodyLetter("Dear Classmate!");
     }
+
     public static Mail getMailWithInvalidAddress(){
         return new Mail()
                 .withRecipient("ufrdrsews89776553")
                 .withSubject(Utilities.getUniqueSubject("Hello"))
                 .withBodyLetter("Dear friend!");
     }
+
     public static Mail getMailWithoutSubjectAndBody(){
         return new Mail()
                 .withRecipient("be.always.happy@bk.ru");

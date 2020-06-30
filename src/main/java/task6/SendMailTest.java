@@ -88,7 +88,6 @@ public class SendMailTest {
         anAssert.assertTrue(isLetterPresentInToMyselfFolder, "Letter isn't present in ToMyself Folder");
         anAssert.assertTrue(isLetterPresentInSentFolder, "Letter isn't present in Sent Folder");
         anAssert.assertAll();
-
     }
 
     @Test
