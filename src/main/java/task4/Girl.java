@@ -1,3 +1,5 @@
+package task4;
+
 import lombok.Getter;
 import lombok.Setter;
 

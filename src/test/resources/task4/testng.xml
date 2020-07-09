@@ -3,7 +3,6 @@
 <suite name="All Test Suite" parallel="tests">
     <test verbose="2" preserve-order="true" name="Test1">
         <parameter name="wealth" value="1500000.0">
-
         </parameter>
         <groups>
             <run>
@@ -11,13 +10,12 @@
             </run>
         </groups>
         <classes>
-            <class name="BoyTest"/>
+            <class name="task4.BoyTest"/>
         </classes>
     </test>
     <test name="Test2">
         <classes>
-            <class name="GirlTest"/>
+            <class name="task4.GirlTest"/>
         </classes>
     </test>
-
 </suite>

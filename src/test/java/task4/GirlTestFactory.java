@@ -1,3 +1,5 @@
+package task4;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 
@@ -16,4 +18,3 @@ public class GirlTestFactory {
         return new Object[]{new GirlTestForFactory(isPretty, isSlimFriendGotAFewKilos)};
     }
 }
-
