@@ -1,0 +1,6 @@
+*.log
+*.db
+bin/
+target/
+.idea/
+test-output/
