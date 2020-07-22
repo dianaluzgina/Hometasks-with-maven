@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="Test1">
+        <classes>
+            <class name="task9.tests.loginTests.LoginWithInvalidUserIdTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test2">
+        <classes>
+            <class name="task9.tests.loginTests.LoginWithInvalidPasswordTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test3">
+        <classes>
+            <class name="task9.tests.loginTests.LoginWithValidCredentialsTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test4">
+        <classes>
+            <class name="task9.tests.sendingMailsTests.SendingMailToMyselfTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test5">
+        <classes>
+            <class name="task9.tests.sendingMailsTests.SendingMailWithInvalidAddressTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test6">
+        <classes>
+            <class name="task9.tests.sendingMailsTests.SendingMailWithoutSubjectAndBodyTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test7">
+        <classes>
+            <class name="task9.tests.sendingMailsTests.DeletingDraftMailTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test8">
+        <classes>
+            <class name="task9.tests.cloudTests.LoginToCloudTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test9">
+        <classes>
+            <class name="task9.tests.cloudTests.CreatingFolderTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test10">
+        <classes>
+            <class name="task9.tests.cloudTests.DeletingFolderTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test11">
+        <classes>
+            <class name="task9.tests.cloudTests.UploadingFileTest"/>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Test12">
+        <classes>
+            <class name="task9.tests.cloudTests.SharingLinkTest"/>
+        </classes>
+    </test>
+</suite>
