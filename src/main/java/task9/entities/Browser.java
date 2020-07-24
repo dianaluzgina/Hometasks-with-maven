@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
-    public static String browserType;
+    //public static String browserType;
     public static final int VERY_LONG_TIMEOUT = 100;
     public static final int LONG_TIMEOUT = 30;
     public static final int DEFAULT_TIMEOUT = 10;
@@ -27,22 +27,26 @@ public class Browser {
     private static Browser browser;
 
     private Browser() {
-        browserType = System.getProperty("browser");
-        switch (browserType) {
-            case "chrome": { System.setProperty("webdriver.chrome.driver",
-                    "./src/main/resources/task9/chromedriver.exe");
-                driver = new ChromeDriver();
-                break;
-            }
-            case "mozilla": {
-                System.setProperty("webdriver.gecko.driver",
-                        "./src/main/resources/task9/geckodriver.exe");
-                driver = new FirefoxDriver();
-                break;
-            }
-            default: throw new IllegalArgumentException("");
-        }
+//        browserType = System.getProperty("browser");
+//        switch (browserType) {
+//            case "chrome": { System.setProperty("webdriver.chrome.driver",
+//                    "./src/main/resources/task9/chromedriver.exe");
+//                driver = new ChromeDriver();
+//                break;
+//            }
+//            case "mozilla": {
+//                System.setProperty("webdriver.gecko.driver",
+//                        "./src/main/resources/task9/geckodriver.exe");
+//                driver = new FirefoxDriver();
+//                break;
+//            }
+//            default: throw new IllegalArgumentException("");
+//        }
+        System.setProperty("webdriver.chrome.driver",
+                "./src/main/resources/task9/chromedriver.exe");
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().pageLoadTimeout(20000, TimeUnit.MILLISECONDS);
     }
 
     public static Browser getInstance() {
