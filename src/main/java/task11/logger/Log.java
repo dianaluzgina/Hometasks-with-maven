@@ -83,22 +83,27 @@ public class Log {
         .format("Wait for text [%s] in element located [%s] for [%s] seconds", text, by, seconds));
   }
 
-    public static void logWaitForElementToBeClickable(By by, int seconds) {
-        logger.debug(String.format("Wait for element located [%s] to be clickable for [%s] seconds",
-            by, seconds));
-    }
+  public static void logWaitForElementToBeClickable(By by, int seconds) {
+    logger.debug(String.format("Wait for element located [%s] to be clickable for [%s] seconds",
+        by, seconds));
+  }
 
-    public static void logPressEscOnThePage() {
-        logger.debug("Press Esc on the page");
-    }
+  public static void logTakeScreenshotOnThePage(String filePath) {
+    logger.debug(String
+        .format("Take screenshot on the page to the file [%s]", filePath));
+  }
 
-    public static void logPressCtrlAOnThePage() {
-        logger.debug("Press Ctrl+A on the page");
-    }
+  public static void logPressEscOnThePage() {
+    logger.debug("Press Esc on the page");
+  }
 
-    public static void logPressDelOnThePage() {
-        logger.debug("Press Del on the page");
-    }
+  public static void logPressCtrlAOnThePage() {
+    logger.debug("Press Ctrl+A on the page");
+  }
+
+  public static void logPressDelOnThePage() {
+    logger.debug("Press Del on the page");
+  }
 
   public static void logTestFail(Throwable throwable) {
     logger.error(throwable.getMessage());

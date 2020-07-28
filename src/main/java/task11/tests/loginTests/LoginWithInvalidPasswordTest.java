@@ -13,28 +13,29 @@ import task11.screens.MailRuLoginPage;
 
 @Listeners({TestListener.class})
 public class LoginWithInvalidPasswordTest {
-    private User testUser = UserFactory.getUserWithInvalidPassword();
 
-    @Test
-    public void mailRuLoginWithInvalidPassword() {
-        Log.logInfo("Test started");
-        MailRuLoginPage page = new MailRuLoginPage();
-        page.load()
-                .typeUserName(testUser.getName())
-                .selectDomain(testUser.getDomain())
-                .clickPasswordButton()
-                .typePassword(testUser.getPassword())
-                .clickSubmitButton();
-        SoftAssert anAssert = new SoftAssert();
-        anAssert.assertTrue(page.isErrorMessageDisplayed(), "Error message isn't displayed");
-        anAssert.assertEquals(page.getErrorMessageText(), "Неверное имя или пароль",
-                "Error message on the page differs from message 'Неверное имя или пароль'");
-        anAssert.assertAll();
-    }
+  private User testUser = UserFactory.getUserWithInvalidPassword();
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        Log.logInfo("Test finished");
-        Browser.getInstance().closeBrowser();
-    }
+  @Test
+  public void mailRuLoginWithInvalidPassword() {
+    Log.logInfo("Test started");
+    MailRuLoginPage page = new MailRuLoginPage();
+    page.load()
+        .typeUserName(testUser.getName())
+        .selectDomain(testUser.getDomain())
+        .clickPasswordButton()
+        .typePassword(testUser.getPassword())
+        .clickSubmitButton();
+    SoftAssert anAssert = new SoftAssert();
+    anAssert.assertTrue(page.isErrorMessageDisplayed(), "Error message isn't displayed");
+    anAssert.assertEquals(page.getErrorMessageText(), "Неверное имя или пароль",
+        "Error message on the page differs from message 'Неверное имя или пароль'");
+    anAssert.assertAll();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() {
+    Log.logInfo("Test finished");
+    Browser.getInstance().closeBrowser();
+  }
 }

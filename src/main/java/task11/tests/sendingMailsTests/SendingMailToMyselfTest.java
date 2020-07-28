@@ -14,51 +14,54 @@ import task11.services.LoginService;
 
 @Listeners({TestListener.class})
 public class SendingMailToMyselfTest {
-    private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
-    private WriteNewEmailPage newMail;
 
-    @BeforeMethod
-    public void setUp() {
-        Log.logInfo("Test started");
-        User user = UserFactory.getUserWithValidCredentials();
-        LoginService.loginToMailRu(user);
-        newMail = new WriteNewEmailPage();
-        newMail.clickSentFolder()
-                .cleanFolder()
-                .clickToMyselfFolder()
-                .cleanFolder();
-    }
+  private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
+  private WriteNewEmailPage newMail;
 
-    @Test
-    public void sendingMailToMyself() {
-        String uniqueSubject = mail.getSubject();
-        newMail.clickWriteTheMailButton();
-        newMail.typeAddressInput(mail.getRecipient())
-                .typeSubjectInput(uniqueSubject)
-                .typeBodyInput(mail.getBodyLetter())
-                .clickSendMailButton()
-                .clickClosePanelMailIsSent()
-                .clickToMyselfFolder();
-        String subjectOfFirstMailInToMyselfFolder = newMail.getTextOfSubjectOfFirstMail();
-        newMail.clickSentFolder();
-        String subjectOfFirstMailInSentFolder = newMail.getTextOfSubjectOfFirstMail();
-        SoftAssert anAssert = new SoftAssert();
-        anAssert.assertEquals(subjectOfFirstMailInToMyselfFolder, uniqueSubject, "Subject of mail in ToMyself folder differs from which we've sent");
-        anAssert.assertEquals(subjectOfFirstMailInSentFolder, uniqueSubject, "Subject of mail in Sent folder differs from which we've sent");
-        anAssert.assertAll();
-    }
+  @BeforeMethod
+  public void setUp() {
+    Log.logInfo("Test started");
+    User user = UserFactory.getUserWithValidCredentials();
+    LoginService.loginToMailRu(user);
+    newMail = new WriteNewEmailPage();
+    newMail.clickSentFolder()
+        .cleanFolder()
+        .clickToMyselfFolder()
+        .cleanFolder();
+  }
 
-    @AfterMethod
-    public void cleanSentFolderAndToMyselfFolderAfterTest() {
-        newMail.clickSentFolder()
-                .cleanFolder()
-                .clickToMyselfFolder()
-                .cleanFolder();
-    }
+  @Test
+  public void sendingMailToMyself() {
+    String uniqueSubject = mail.getSubject();
+    newMail.clickWriteTheMailButton();
+    newMail.typeAddressInput(mail.getRecipient())
+        .typeSubjectInput(uniqueSubject)
+        .typeBodyInput(mail.getBodyLetter())
+        .clickSendMailButton()
+        .clickClosePanelMailIsSent()
+        .clickToMyselfFolder();
+    String subjectOfFirstMailInToMyselfFolder = newMail.getTextOfSubjectOfFirstMail();
+    newMail.clickSentFolder();
+    String subjectOfFirstMailInSentFolder = newMail.getTextOfSubjectOfFirstMail();
+    SoftAssert anAssert = new SoftAssert();
+    anAssert.assertEquals(subjectOfFirstMailInToMyselfFolder, uniqueSubject,
+        "Subject of mail in ToMyself folder differs from which we've sent");
+    anAssert.assertEquals(subjectOfFirstMailInSentFolder, uniqueSubject,
+        "Subject of mail in Sent folder differs from which we've sent");
+    anAssert.assertAll();
+  }
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        Log.logInfo("Test finished");
-        Browser.getInstance().closeBrowser();
-    }
+  @AfterMethod
+  public void cleanSentFolderAndToMyselfFolderAfterTest() {
+    newMail.clickSentFolder()
+        .cleanFolder()
+        .clickToMyselfFolder()
+        .cleanFolder();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() {
+    Log.logInfo("Test finished");
+    Browser.getInstance().closeBrowser();
+  }
 }

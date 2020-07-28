@@ -1,14 +1,15 @@
 package task11.bo;
 
 public class Folder {
-    private String name;
 
-    public String getName() {
-        return name;
-    }
+  private String name;
 
-    public Folder withName(String name){
-        this.name=name;
-        return this;
-    }
+  public String getName() {
+    return name;
+  }
+
+  public Folder withName(String name) {
+    this.name = name;
+    return this;
+  }
 }

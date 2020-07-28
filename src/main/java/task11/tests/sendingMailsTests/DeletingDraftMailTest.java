@@ -17,64 +17,68 @@ import java.util.List;
 
 @Listeners({TestListener.class})
 public class DeletingDraftMailTest {
-    private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
-    private WriteNewEmailPage newMail;
 
-    @BeforeMethod
-    public void setUp() {
-        Log.logInfo("Test started");
-        User user = UserFactory.getUserWithValidCredentials();
-        LoginService.loginToMailRu(user);
-        newMail = new WriteNewEmailPage();
-        newMail.clickDraftsFolder()
-                .pressCtrlAOnThePage()
-                .pressDelOnThePage()
-                .clickTrashFolder()
-                .clickClearTrashFolderButton()
-                .clickApproveClearingTrashFolderButton();
-    }
+  private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
+  private WriteNewEmailPage newMail;
 
-    @Test
-    public void deletingDraftMail() {
-        String uniqueSubject = mail.getSubject();
-        newMail.clickWriteTheMailButton();
-        newMail.typeAddressInput(mail.getRecipient())
-                .typeSubjectInput(uniqueSubject)
-                .typeBodyInput(mail.getBodyLetter())
-                .clickSaveDraftMailButton()
-                .clickCloseDraftMailButton()
-                .clickDraftsFolder();
-        String subjectOfFirstMailInDraftsFolder = newMail.getTextOfSubjectOfFirstMail();
-        if (uniqueSubject.equals(subjectOfFirstMailInDraftsFolder)){
-            newMail.selectCheckboxOfMailByIndex(1)
-                    .clickDeleteTheMailButton();
-        }
-        newMail.clickTrashFolder();
-        String subjectOfFirstMailInTrashFolder = newMail.getTextOfSubjectOfFirstMail();
-        if (uniqueSubject.equals(subjectOfFirstMailInTrashFolder)){
-            newMail.clickClearTrashFolderButton()
-                    .clickApproveClearingTrashFolderButton();
-        }
-        newMail.clickTrashFolder();
-        List<WebElement> subjectsOfMailsInTrashFolder = newMail.getSubjectsOfMails();
-        SoftAssert anAssert = new SoftAssert();
-        anAssert.assertEquals(subjectOfFirstMailInDraftsFolder, uniqueSubject, "Subject of mail in Draft folder differs from which we've created");
-        anAssert.assertEquals(subjectOfFirstMailInTrashFolder, uniqueSubject, "Subject of mail in Trash folder differs from which we've deleted");
-        anAssert.assertEquals(subjectsOfMailsInTrashFolder.size(), 0, "Male hasn't been deleted from Trash folder");
-        anAssert.assertAll();
-    }
+  @BeforeMethod
+  public void setUp() {
+    Log.logInfo("Test started");
+    User user = UserFactory.getUserWithValidCredentials();
+    LoginService.loginToMailRu(user);
+    newMail = new WriteNewEmailPage();
+    newMail.clickDraftsFolder()
+        .pressCtrlAOnThePage()
+        .pressDelOnThePage()
+        .clickTrashFolder()
+        .clickClearTrashFolderButton()
+        .clickApproveClearingTrashFolderButton();
+  }
 
-    @AfterMethod
-    public void cleanDraftsFolderAndTrashFolderAfterTest() {
-        newMail.clickDraftsFolder()
-                .cleanFolder()
-                .clickTrashFolder()
-                .cleanFolder();
+  @Test
+  public void deletingDraftMail() {
+    String uniqueSubject = mail.getSubject();
+    newMail.clickWriteTheMailButton();
+    newMail.typeAddressInput(mail.getRecipient())
+        .typeSubjectInput(uniqueSubject)
+        .typeBodyInput(mail.getBodyLetter())
+        .clickSaveDraftMailButton()
+        .clickCloseDraftMailButton()
+        .clickDraftsFolder();
+    String subjectOfFirstMailInDraftsFolder = newMail.getTextOfSubjectOfFirstMail();
+    if (uniqueSubject.equals(subjectOfFirstMailInDraftsFolder)) {
+      newMail.selectCheckboxOfMailByIndex(1)
+          .clickDeleteTheMailButton();
     }
+    newMail.clickTrashFolder();
+    String subjectOfFirstMailInTrashFolder = newMail.getTextOfSubjectOfFirstMail();
+    if (uniqueSubject.equals(subjectOfFirstMailInTrashFolder)) {
+      newMail.clickClearTrashFolderButton()
+          .clickApproveClearingTrashFolderButton();
+    }
+    newMail.clickTrashFolder();
+    List<WebElement> subjectsOfMailsInTrashFolder = newMail.getSubjectsOfMails();
+    SoftAssert anAssert = new SoftAssert();
+    anAssert.assertEquals(subjectOfFirstMailInDraftsFolder, uniqueSubject,
+        "Subject of mail in Draft folder differs from which we've created");
+    anAssert.assertEquals(subjectOfFirstMailInTrashFolder, uniqueSubject,
+        "Subject of mail in Trash folder differs from which we've deleted");
+    anAssert.assertEquals(subjectsOfMailsInTrashFolder.size(), 0,
+        "Male hasn't been deleted from Trash folder");
+    anAssert.assertAll();
+  }
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        Log.logInfo("Test finished");
-        Browser.getInstance().closeBrowser();
-    }
+  @AfterMethod
+  public void cleanDraftsFolderAndTrashFolderAfterTest() {
+    newMail.clickDraftsFolder()
+        .cleanFolder()
+        .clickTrashFolder()
+        .cleanFolder();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() {
+    Log.logInfo("Test finished");
+    Browser.getInstance().closeBrowser();
+  }
 }

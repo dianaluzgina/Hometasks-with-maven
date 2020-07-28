@@ -17,35 +17,40 @@ import task11.services.LoginService;
 
 @Listeners({TestListener.class})
 public class SendingMailWithInvalidAddressTest {
-private Mail mail = MailFactory.getMailWithInvalidAddress();
-private WriteNewEmailPage newMail;
 
-    @BeforeClass
-    public void setUp() {
-        Log.logInfo("Test started");
-        User user= UserFactory.getUserWithValidCredentials();
-        LoginService.loginToMailRu(user);
-    }
+  private Mail mail = MailFactory.getMailWithInvalidAddress();
+  private WriteNewEmailPage newMail;
 
-    @Test
-    public void sendingMailWithInvalidAddress() {
-        newMail = new WriteNewEmailPage();
-        newMail.clickWriteTheMailButton();
-        newMail.typeAddressInput(mail.getRecipient())
-                .typeSubjectInput(mail.getSubject())
-                .typeBodyInput(mail.getBodyLetter())
-                .clickSendMailButton();
-        SoftAssert anAssert = new SoftAssert();
-        anAssert.assertTrue(newMail.isErrorMessageDisplayed(), "Error message isn't displayed");
-        anAssert.assertEquals(newMail.getErrorMessageText(), "Присутствуют некорректные адреса", "Text of error message differs from we've expected");
-        anAssert.assertTrue(newMail.isErrorMessageToChangeTheMailDisplayed(), "Second error message isn't displayed");
-        anAssert.assertEquals(newMail.getErrorMessageToChangeTheMailText(), "Исправьте и попробуйте отправить заново", "Text of error message differs from we've expected");
-        anAssert.assertAll();
-    }
+  @BeforeClass
+  public void setUp() {
+    Log.logInfo("Test started");
+    User user = UserFactory.getUserWithValidCredentials();
+    LoginService.loginToMailRu(user);
+  }
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        Log.logInfo("Test finished");
-        Browser.getInstance().closeBrowser();
-    }
+  @Test
+  public void sendingMailWithInvalidAddress() {
+    newMail = new WriteNewEmailPage();
+    newMail.clickWriteTheMailButton();
+    newMail.typeAddressInput(mail.getRecipient())
+        .typeSubjectInput(mail.getSubject())
+        .typeBodyInput(mail.getBodyLetter())
+        .clickSendMailButton();
+    SoftAssert anAssert = new SoftAssert();
+    anAssert.assertTrue(newMail.isErrorMessageDisplayed(), "Error message isn't displayed");
+    anAssert.assertEquals(newMail.getErrorMessageText(), "Присутствуют некорректные адреса",
+        "Text of error message differs from we've expected");
+    anAssert.assertTrue(newMail.isErrorMessageToChangeTheMailDisplayed(),
+        "Second error message isn't displayed");
+    anAssert.assertEquals(newMail.getErrorMessageToChangeTheMailText(),
+        "Исправьте и попробуйте отправить заново",
+        "Text of error message differs from we've expected");
+    anAssert.assertAll();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() {
+    Log.logInfo("Test finished");
+    Browser.getInstance().closeBrowser();
+  }
 }

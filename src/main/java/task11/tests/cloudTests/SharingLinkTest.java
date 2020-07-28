@@ -17,62 +17,64 @@ import task11.services.LoginService;
 
 @Listeners({TestListener.class})
 public class SharingLinkTest {
-    private Folder folder = FolderFactory.getFolderWithUniqueName();
-    private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
-    private MailRuCloudMainPage cloudPage;
-    private WriteNewEmailPage newMail;
 
-    @BeforeMethod
-        public void setUp() {
-        Log.logInfo("Test started");
-        User user = UserFactory.getUserWithValidCredentials();
-        LoginService.loginToMailRuCloud(user);
-        cloudPage = new MailRuCloudMainPage();
-        cloudPage.switchToTheTabByIndex(2)
-                .clickSelectAllButton()
-                .cleanCloudBeforeTest();
-    }
+  private Folder folder = FolderFactory.getFolderWithUniqueName();
+  private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
+  private MailRuCloudMainPage cloudPage;
+  private WriteNewEmailPage newMail;
 
-    @Test
-    public void sharingLinkToFolder() {
-        String uniqueName = folder.getName();
-        cloudPage.clickCreateButton()
-                .clickCreateFolderButton()
-                .typeNameOfTheFolder(uniqueName)
-                .clickCreateFolderButtonInTheFrame();
-        if (cloudPage.isMessageThatFolderIsEmptyVisible()) {
-            cloudPage.clickCloudButton()
-                    .contextClickOnTheFirstElement()
-                    .clickShareLink()
-                    .clickSendLinkBYMail()
-                    .switchToTheTabByIndex(3);
-        }
-        newMail = new WriteNewEmailPage();
-        newMail.typeAddressInput(mail.getRecipient());
-        String linkToPublicFolder = newMail.getTextOfTheBodyWithLinkToPublicFolder();
-        newMail.clickSendMailButton()
-                .clickClosePanelMailIsSent();
-        cloudPage.loadUrl(linkToPublicFolder);
-        String nameOfThePublicFolder = cloudPage.getNameOfThePublicFolder();
-        Assert.assertEquals(nameOfThePublicFolder, uniqueName, "Name of the public folder differs from which we've created");
-    }
+  @BeforeMethod
+  public void setUp() {
+    Log.logInfo("Test started");
+    User user = UserFactory.getUserWithValidCredentials();
+    LoginService.loginToMailRuCloud(user);
+    cloudPage = new MailRuCloudMainPage();
+    cloudPage.switchToTheTabByIndex(2)
+        .clickSelectAllButton()
+        .cleanCloudBeforeTest();
+  }
 
-    @AfterMethod
-    public void cleanAfterTest() {
-        cloudPage.switchToTheTabByIndex(2)
-                .pressEscOnThePage()
-                .pressCtrlAOnThePage()
-                .cleanCloudAfterTest()
-                .switchToTheTabByIndex(1);
-        newMail.clickToMyselfFolder()
-                .cleanFolder()
-                .clickSentFolder()
-                .cleanFolder();
+  @Test
+  public void sharingLinkToFolder() {
+    String uniqueName = folder.getName();
+    cloudPage.clickCreateButton()
+        .clickCreateFolderButton()
+        .typeNameOfTheFolder(uniqueName)
+        .clickCreateFolderButtonInTheFrame();
+    if (cloudPage.isMessageThatFolderIsEmptyVisible()) {
+      cloudPage.clickCloudButton()
+          .contextClickOnTheFirstElement()
+          .clickShareLink()
+          .clickSendLinkBYMail()
+          .switchToTheTabByIndex(3);
     }
+    newMail = new WriteNewEmailPage();
+    newMail.typeAddressInput(mail.getRecipient());
+    String linkToPublicFolder = newMail.getTextOfTheBodyWithLinkToPublicFolder();
+    newMail.clickSendMailButton()
+        .clickClosePanelMailIsSent();
+    cloudPage.loadUrl(linkToPublicFolder);
+    String nameOfThePublicFolder = cloudPage.getNameOfThePublicFolder();
+    Assert.assertEquals(nameOfThePublicFolder, uniqueName,
+        "Name of the public folder differs from which we've created");
+  }
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        Log.logInfo("Test finished");
-        Browser.getInstance().closeBrowser();
-    }
+  @AfterMethod
+  public void cleanAfterTest() {
+    cloudPage.switchToTheTabByIndex(2)
+        .pressEscOnThePage()
+        .pressCtrlAOnThePage()
+        .cleanCloudAfterTest()
+        .switchToTheTabByIndex(1);
+    newMail.clickToMyselfFolder()
+        .cleanFolder()
+        .clickSentFolder()
+        .cleanFolder();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() {
+    Log.logInfo("Test finished");
+    Browser.getInstance().closeBrowser();
+  }
 }

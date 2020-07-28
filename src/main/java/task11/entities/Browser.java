@@ -1,6 +1,9 @@
 package task11.entities;
 
 
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
+  private static final String PATTERN_PATH_TO_SCREENSHOT_FILE = "test-output/screenshots/%s.png";
   public static String browserType;
   public static final int VERY_LONG_TIMEOUT = 100;
   public static final int LONG_TIMEOUT = 20;
@@ -26,24 +30,22 @@ public class Browser {
   private static Browser browser;
 
   private Browser() {
-//        browserType = System.getProperty("browser");
-//        switch (browserType) {
-//            case "chrome": { System.setProperty("webdriver.chrome.driver",
-//                    "./src/main/resources/task11/chromedriver.exe");
-//                driver = new ChromeDriver();
-//                break;
-//            }
-//            case "mozilla": {
-//                System.setProperty("webdriver.gecko.driver",
-//                        "./src/main/resources/task11/geckodriver.exe");
-//                driver = new FirefoxDriver();
-//                break;
-//            }
-//            default: throw new IllegalArgumentException("");
-//        }
-    System.setProperty("webdriver.chrome.driver",
-        "./src/main/resources/task11/chromedriver.exe");
-    driver = new ChromeDriver();
+    switch (browserType) {
+      case "chrome": {
+        System.setProperty("webdriver.chrome.driver",
+            "./src/main/resources/task11/chromedriver.exe");
+        driver = new ChromeDriver();
+        break;
+      }
+      case "mozilla": {
+        System.setProperty("webdriver.gecko.driver",
+            "./src/main/resources/task11/geckodriver.exe");
+        driver = new FirefoxDriver();
+        break;
+      }
+      default:
+        throw new IllegalArgumentException("");
+    }
     driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
     driver.manage().timeouts().pageLoadTimeout(20000, TimeUnit.MILLISECONDS);
   }
@@ -60,11 +62,6 @@ public class Browser {
     driver.quit();
     browser = null;
     Log.logCloseBrowser();
-  }
-
-  public void switchToFrame(int index) {
-    Log.logSwitchToFrame(index);
-    driver.switchTo().frame(index);
   }
 
   public Set<String> getWindowHandles() {
@@ -170,5 +167,17 @@ public class Browser {
   public void pressDelOnThePage() {
     Log.logPressDelOnThePage();
     driver.findElement(By.tagName("body")).sendKeys(Keys.DELETE);
+  }
+
+  public void takeScreenshotOnThePage(String fileName) {
+    File screenFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    File destinationFile = new File(
+        (String.format(PATTERN_PATH_TO_SCREENSHOT_FILE, fileName)));
+    try {
+      FileUtils.copyFile(screenFile, destinationFile);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Log.logTakeScreenshotOnThePage(destinationFile.getAbsolutePath());
   }
 }

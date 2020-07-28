@@ -5,25 +5,27 @@ import task11.logger.Log;
 import task11.screens.MailRuLoginPage;
 
 public class LoginService {
-    public static void loginToMailRu(User user) {
-        Log.logInfo("Signing into mailbox with user:" + user.toString());
-        MailRuLoginPage page = new MailRuLoginPage();
-        page.load()
-                .typeUserName(user.getName())
-                .selectDomain(user.getDomain())
-                .clickPasswordButton()
-                .typePassword(user.getPassword())
-                .clickSubmitButton();
-    }
 
-    public static void loginToMailRuCloud(User user) {
-        MailRuLoginPage page = new MailRuLoginPage();
-        page.load()
-                .typeUserName(user.getName())
-                .selectDomain(user.getDomain())
-                .clickPasswordButton()
-                .typePassword(user.getPassword())
-                .clickSubmitButton()
-                .clickCloudButton();
-    }
+  public static void loginToMailRu(User user) {
+    Log.logInfo("Signing into mailbox with user:" + user.toString());
+    MailRuLoginPage page = new MailRuLoginPage();
+    page.load()
+        .typeUserName(user.getName())
+        .selectDomain(user.getDomain())
+        .clickPasswordButton()
+        .typePassword(user.getPassword())
+        .clickSubmitButton();
+  }
+
+  public static void loginToMailRuCloud(User user) {
+    Log.logInfo("Signing into mailbox and cloud with user:" + user.toString());
+    MailRuLoginPage page = new MailRuLoginPage();
+    page.load()
+        .typeUserName(user.getName())
+        .selectDomain(user.getDomain())
+        .clickPasswordButton()
+        .typePassword(user.getPassword())
+        .clickSubmitButton()
+        .clickCloudButton();
+  }
 }

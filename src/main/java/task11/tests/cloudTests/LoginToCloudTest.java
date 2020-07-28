@@ -14,18 +14,20 @@ import task11.services.LoginService;
 
 @Listeners({TestListener.class})
 public class LoginToCloudTest {
-    private User testUser = UserFactory.getUserWithValidCredentials();
 
-    @Test
-    public void mailRuLoginWithValidCredentials() {
-        Log.logInfo("Test started");
-        LoginService.loginToMailRuCloud(testUser);
-        Assert.assertEquals(new MailRuCloudMainPage().getUserID(), testUser.getName()+testUser.getDomain(), "User id wasn't found!");
-    }
+  private User testUser = UserFactory.getUserWithValidCredentials();
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        Log.logInfo("Test finished");
-        Browser.getInstance().closeBrowser();
-    }
+  @Test
+  public void loginToCloud() {
+    Log.logInfo("Test started");
+    LoginService.loginToMailRuCloud(testUser);
+    Assert.assertEquals(new MailRuCloudMainPage().getUserID(),
+        testUser.getName() + testUser.getDomain(), "User id wasn't found!");
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() {
+    Log.logInfo("Test finished");
+    Browser.getInstance().closeBrowser();
+  }
 }
