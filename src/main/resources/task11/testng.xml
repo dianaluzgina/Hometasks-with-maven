@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="Test1">
+        <classes>
+            <class name="task11.tests.loginTests.LoginWithInvalidPasswordTest"/>
+            <class name="task11.tests.loginTests.LoginWithInvalidUserIdTest"/>
+            <class name="task11.tests.loginTests.LoginWithValidCredentialsTest"/>
+            <class name="task11.tests.sendingMailsTests.DeletingDraftMailTest"/>
+            <class name="task11.tests.sendingMailsTests.SendingMailToMyselfTest"/>
+            <class name="task11.tests.sendingMailsTests.SendingMailWithInvalidAddressTest"/>
+            <class name="task11.tests.sendingMailsTests.SendingMailWithoutSubjectAndBodyTest"/>
+            <class name="task11.tests.cloudTests.CreatingFolderTest"/>
+            <class name="task11.tests.cloudTests.DeletingFolderTest"/>
+            <class name="task11.tests.cloudTests.DragAndDropFileTest"/>
+            <class name="task11.tests.cloudTests.LoginToCloudTest"/>
+            <class name="task11.tests.cloudTests.SharingLinkTest"/>
+            <class name="task11.tests.cloudTests.UploadingFileTest"/>
+        </classes>
+    </test>
+</suite>
