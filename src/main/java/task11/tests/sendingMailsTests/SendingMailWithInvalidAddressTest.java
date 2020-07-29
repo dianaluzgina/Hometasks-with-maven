@@ -14,9 +14,10 @@ import task11.bo.UserFactory;
 import task11.logger.Log;
 import task11.screens.WriteNewEmailPage;
 import task11.services.LoginService;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class SendingMailWithInvalidAddressTest {
+public class SendingMailWithInvalidAddressTest extends BaseTest {
 
   private Mail mail = MailFactory.getMailWithInvalidAddress();
   private WriteNewEmailPage newMail;
@@ -46,11 +47,5 @@ public class SendingMailWithInvalidAddressTest {
         "Исправьте и попробуйте отправить заново",
         "Text of error message differs from we've expected");
     anAssert.assertAll();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }

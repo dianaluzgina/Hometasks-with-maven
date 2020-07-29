@@ -11,9 +11,10 @@ import task11.bo.UserFactory;
 import task11.logger.Log;
 import task11.screens.WriteNewEmailPage;
 import task11.services.LoginService;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class SendingMailWithoutSubjectAndBodyTest {
+public class SendingMailWithoutSubjectAndBodyTest extends BaseTest {
 
   private Mail mail = MailFactory.getMailWithoutSubjectAndBody();
   private WriteNewEmailPage newMail;
@@ -58,11 +59,5 @@ public class SendingMailWithoutSubjectAndBodyTest {
         .clickToMyselfFolder()
         .pressCtrlAOnThePage()
         .pressDelOnThePage();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }

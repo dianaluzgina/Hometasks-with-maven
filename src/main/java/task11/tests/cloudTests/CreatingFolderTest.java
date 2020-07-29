@@ -10,10 +10,12 @@ import task11.bo.User;
 import task11.bo.UserFactory;
 import task11.logger.Log;
 import task11.screens.MailRuCloudMainPage;
+import task11.services.CleanCloudService;
 import task11.services.LoginService;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class CreatingFolderTest {
+public class CreatingFolderTest extends BaseTest {
 
   private Folder folder = FolderFactory.getFolderWithUniqueName();
   private MailRuCloudMainPage cloudPage;
@@ -24,9 +26,8 @@ public class CreatingFolderTest {
     User user = UserFactory.getUserWithValidCredentials();
     LoginService.loginToMailRuCloud(user);
     cloudPage = new MailRuCloudMainPage();
-    cloudPage.switchToTheTabByIndex(2)
-        .clickSelectAllButton()
-        .cleanCloudBeforeTest();
+    cloudPage.switchToTheTabByIndex(2);
+    CleanCloudService.cleanCloudBeforeTest();
   }
 
   @Test
@@ -44,14 +45,7 @@ public class CreatingFolderTest {
 
   @AfterMethod
   public void cleanAfterTest() {
-    cloudPage.clickCloudButton()
-        .clickSelectAllButton()
-        .cleanCloudAfterTest();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
+    cloudPage.clickCloudButton();
+       CleanCloudService.cleanCloudAfterTest();
   }
 }

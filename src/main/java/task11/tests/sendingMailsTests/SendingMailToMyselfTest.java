@@ -11,9 +11,10 @@ import task11.bo.UserFactory;
 import task11.logger.Log;
 import task11.screens.WriteNewEmailPage;
 import task11.services.LoginService;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class SendingMailToMyselfTest {
+public class SendingMailToMyselfTest extends BaseTest {
 
   private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
   private WriteNewEmailPage newMail;
@@ -57,11 +58,5 @@ public class SendingMailToMyselfTest {
         .cleanFolder()
         .clickToMyselfFolder()
         .cleanFolder();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }

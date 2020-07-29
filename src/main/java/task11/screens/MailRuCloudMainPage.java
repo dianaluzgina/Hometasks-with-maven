@@ -1,5 +1,7 @@
 package task11.screens;
 
+import static java.lang.String.format;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -149,27 +151,6 @@ public class MailRuCloudMainPage extends BasePage {
     return textsOfElementsInTheCloudOrFolder;
   }
 
-  public MailRuCloudMainPage cleanCloudBeforeTest() {
-    MailRuCloudMainPage page = new MailRuCloudMainPage();
-    List<WebElement> elementsInTheCloud = page.getElementsInTheCloudOrFolder();
-    if (elementsInTheCloud.size() > 0) {
-      page.clickDeleteButton()
-          .clickApproveDeleteButton()
-          .clickCloseInformingMessageButton();
-    }
-    return this;
-  }
-
-  public MailRuCloudMainPage cleanCloudAfterTest() {
-    MailRuCloudMainPage page = new MailRuCloudMainPage();
-    List<WebElement> elementsInTheCloud = page.getElementsInTheCloudOrFolder();
-    if (elementsInTheCloud.size() > 0) {
-      page.clickDeleteButton()
-          .clickApproveDeleteButton();
-    }
-    return this;
-  }
-
   public MailRuCloudMainPage doubleClickToTheFirstElement() {
     browser.waitForElementToBeClickable(By.xpath(FIRST_ELEMENT_IN_THE_CLOUD_OR_FOLDER_XPATH),
         browser.DEFAULT_TIMEOUT);
@@ -205,9 +186,9 @@ public class MailRuCloudMainPage extends BasePage {
 
   public MailRuCloudMainPage clickActivateFolder(String folderName) {
     browser.waitForElementToBeClickable(
-        By.xpath(String.format(ACTIVATE_FOLDER_PATTERN_XPATH, folderName)),
+        By.xpath(format(ACTIVATE_FOLDER_PATTERN_XPATH, folderName)),
         browser.DEFAULT_TIMEOUT);
-    browser.clickElement(By.xpath(String.format(ACTIVATE_FOLDER_PATTERN_XPATH, folderName)));
+    browser.clickElement(By.xpath(format(ACTIVATE_FOLDER_PATTERN_XPATH, folderName)));
     return this;
   }
 

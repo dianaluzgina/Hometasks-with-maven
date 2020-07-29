@@ -13,10 +13,12 @@ import task11.entities.Browser;
 import task11.logger.Log;
 import task11.screens.MailRuCloudMainPage;
 import task11.screens.WriteNewEmailPage;
+import task11.services.CleanCloudService;
 import task11.services.LoginService;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class SharingLinkTest {
+public class SharingLinkTest extends BaseTest {
 
   private Folder folder = FolderFactory.getFolderWithUniqueName();
   private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
@@ -29,9 +31,8 @@ public class SharingLinkTest {
     User user = UserFactory.getUserWithValidCredentials();
     LoginService.loginToMailRuCloud(user);
     cloudPage = new MailRuCloudMainPage();
-    cloudPage.switchToTheTabByIndex(2)
-        .clickSelectAllButton()
-        .cleanCloudBeforeTest();
+    cloudPage.switchToTheTabByIndex(2);
+    CleanCloudService.cleanCloudBeforeTest();
   }
 
   @Test
@@ -63,18 +64,12 @@ public class SharingLinkTest {
   public void cleanAfterTest() {
     cloudPage.switchToTheTabByIndex(2)
         .pressEscOnThePage()
-        .pressCtrlAOnThePage()
-        .cleanCloudAfterTest()
-        .switchToTheTabByIndex(1);
+        .pressCtrlAOnThePage();
+    CleanCloudService.cleanCloudAfterTest();
+        cloudPage.switchToTheTabByIndex(1);
     newMail.clickToMyselfFolder()
         .cleanFolder()
         .clickSentFolder()
         .cleanFolder();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }

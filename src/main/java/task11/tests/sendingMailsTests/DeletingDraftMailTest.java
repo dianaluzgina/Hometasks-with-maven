@@ -14,9 +14,10 @@ import task11.screens.WriteNewEmailPage;
 import task11.services.LoginService;
 
 import java.util.List;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class DeletingDraftMailTest {
+public class DeletingDraftMailTest extends BaseTest {
 
   private Mail mail = MailFactory.getMailWhereRecipientEqualsSender();
   private WriteNewEmailPage newMail;
@@ -74,11 +75,5 @@ public class DeletingDraftMailTest {
         .cleanFolder()
         .clickTrashFolder()
         .cleanFolder();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }

@@ -6,7 +6,7 @@ public class BasePage {
 
   protected Browser browser;
 
-  public BasePage() {
+  protected BasePage() {
     browser = Browser.getInstance();
   }
 }

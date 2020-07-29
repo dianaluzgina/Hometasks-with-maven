@@ -11,13 +11,15 @@ import task11.bo.UserFactory;
 import task11.entities.Browser;
 import task11.logger.Log;
 import task11.screens.MailRuCloudMainPage;
+import task11.services.CleanCloudService;
 import task11.services.LoginService;
 
 import java.io.File;
 import java.util.List;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class DragAndDropFileTest {
+public class DragAndDropFileTest extends BaseTest {
 
   private static final String PATH_TO_THE_FILE_FOR_DOWNLOADING = "src/main/resources/task11/fileToLoad.txt";
   private static final String FILE_NAME = "fileToLoad";
@@ -31,9 +33,8 @@ public class DragAndDropFileTest {
     User user = UserFactory.getUserWithValidCredentials();
     LoginService.loginToMailRuCloud(user);
     cloudPage = new MailRuCloudMainPage();
-    cloudPage.switchToTheTabByIndex(2)
-        .clickSelectAllButton()
-        .cleanCloudBeforeTest();
+    cloudPage.switchToTheTabByIndex(2);
+    CleanCloudService.cleanCloudBeforeTest();
   }
 
   @Test
@@ -68,14 +69,7 @@ public class DragAndDropFileTest {
 
   @AfterMethod
   public void cleanAfterTest() {
-    cloudPage.clickCloudButton()
-        .clickSelectAllButton()
-        .cleanCloudAfterTest();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
+    cloudPage.clickCloudButton();
+    CleanCloudService.cleanCloudAfterTest();
   }
 }

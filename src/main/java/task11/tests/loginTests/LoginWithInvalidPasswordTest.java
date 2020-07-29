@@ -10,9 +10,10 @@ import task11.bo.User;
 import task11.bo.UserFactory;
 import task11.logger.Log;
 import task11.screens.MailRuLoginPage;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class LoginWithInvalidPasswordTest {
+public class LoginWithInvalidPasswordTest extends BaseTest {
 
   private User testUser = UserFactory.getUserWithInvalidPassword();
 
@@ -31,11 +32,5 @@ public class LoginWithInvalidPasswordTest {
     anAssert.assertEquals(page.getErrorMessageText(), "Неверное имя или пароль",
         "Error message on the page differs from message 'Неверное имя или пароль'");
     anAssert.assertAll();
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }

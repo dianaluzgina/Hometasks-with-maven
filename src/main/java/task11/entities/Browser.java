@@ -1,6 +1,8 @@
 package task11.entities;
 
 
+import static java.lang.String.format;
+
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
@@ -172,7 +174,7 @@ public class Browser {
   public void takeScreenshotOnThePage(String fileName) {
     File screenFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     File destinationFile = new File(
-        (String.format(PATTERN_PATH_TO_SCREENSHOT_FILE, fileName)));
+        (format(PATTERN_PATH_TO_SCREENSHOT_FILE, fileName)));
     try {
       FileUtils.copyFile(screenFile, destinationFile);
     } catch (IOException e) {

@@ -11,9 +11,10 @@ import task11.bo.UserFactory;
 import task11.logger.Log;
 import task11.screens.MailRuCloudMainPage;
 import task11.services.LoginService;
+import task11.tests.BaseTest;
 
 @Listeners({TestListener.class})
-public class LoginToCloudTest {
+public class LoginToCloudTest extends BaseTest {
 
   private User testUser = UserFactory.getUserWithValidCredentials();
 
@@ -23,11 +24,5 @@ public class LoginToCloudTest {
     LoginService.loginToMailRuCloud(testUser);
     Assert.assertEquals(new MailRuCloudMainPage().getUserID(),
         testUser.getName() + testUser.getDomain(), "User id wasn't found!");
-  }
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() {
-    Log.logInfo("Test finished");
-    Browser.getInstance().closeBrowser();
   }
 }
